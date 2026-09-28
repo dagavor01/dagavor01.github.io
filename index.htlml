@@ -1,2 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DAGAVOR GLOBAL - Wallet Vérifié 45 Pays</title>
+<script src="https://unpkg.com/@solana/web3.js@1.91.0/lib/index.iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bip39@3.1.0/dist/bip39.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ed25519-hd-key@1.3.0/dist/index.min.js"></script>
+<style>
+body{margin:0;background:#0a0614;color:#fff;font-family:Arial;padding:10px}
+.card{max-width:480px;margin:auto;background:#15101f;border:1px solid #2a2340;border-radius:24px;padding:18px}
+.logo{font-weight:900;background:linear-gradient(90deg,#FFD700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:22px;text-align:center}
+.input{width:100%;padding:14px;border-radius:12px;background:#0e0a1a;border:1px solid #2a2340;color:#fff;margin-top:10px;box-sizing:border-box}
+.btn{width:100%;padding:14px;border-radius:14px;border:0;font-weight:800;margin-top:10px;cursor:pointer}
+.btn-gold{background:linear-gradient(90deg,#FFD700,#ff8c00);color:#000}
+.btn-dark{background:#0e0a1a;border:1px solid #2a2340;color:#fff}
+.box{padding:12px;background:#000;border:1px dashed #FFD700;border-radius:12px;margin-top:10px;font-size:13px}
+.step{display:none}.step.active{display:block}
+.ok{color:#00ff88}.err{color:#ff4444}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="logo">DAGAVOR GLOBAL</div>
+<p style="text-align:center;color:#a48fff;font-size:12px">45 PAYS • Vérification OM + Email • 655 16 63 10</p>
 
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DAGAVOR GLOBAL - Wallet 45 Pays + Pub</title><script src="https://unpkg.com/@solana/web3.js@1.91.0/lib/index.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bip39@3.1.0/dist/bip39.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ed25519-hd-key@1.3.0/dist/index.min.js"></script><style>body{margin:0;background:#0a0614;color:#fff;font-family:Arial;padding:10px}.header{max-width:480px;margin:auto;display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1f1a30}.logo{font-weight:900;background:linear-gradient(90deg,#FFD700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:20px}.badge{background:#2a2340;color:#a48fff;padding:4px 10px;border-radius:20px;font-size:11px}.card{max-width:480px;margin:15px auto;background:#15101f;border:1px solid #2a2340;border-radius:24px;padding:18px}.tabs{display:flex;gap:8px;margin-bottom:12px}.tab{flex:1;padding:10px;border-radius:12px;background:#0e0a1a;border:1px solid #2a2340;color:#888;cursor:pointer;text-align:center;font-size:13px;font-weight:700}.tab.active{background:linear-gradient(90deg,#FFD700,#ff8c00);color:#000;border:0}button{width:100%;padding:14px;border-radius:14px;border:0;font-weight:800;margin-top:8px;cursor:pointer}.btn-gold{background:linear-gradient(90deg,#FFD700,#ff8c00);color:#000}.btn-dark{background:#0e0a1a;border:1px solid #2a2340;color:#fff}.seed{background:#000;padding:12px;border-radius:12px;word-spacing:8px;line-height:28px;margin:10px 0;border:1px dashed #555}.input{width:100%;padding:14px;border-radius:14px;background:#0e0a1a;border:1px solid #2a2340;color:#fff;margin-top:8px;box-sizing:border-box}select{width:100%;padding:12px;border-radius:14px;background:#0e0a1a;border:1px solid #2a2340;color:#fff}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.box{background:#0e0a1a;border:1px solid #2a2340;border-radius:12px;padding:10px;text-align:center;font-size:11px}small{color:#8b86a0}.section{display:none}.section.active{display:block}</style></head><body><div class="header"><div class="logo">DAGAVOR GLOBAL</div><div class="badge">45 PAYS LIVE</div></div><div class="card"><div class="tabs"><div class="tab active" onclick="showTab('wallet',this)">Wallet</div><div class="tab" onclick="showTab('pub',this)">Pub 25$</div><div class="tab" onclick="showTab('partner',this)">Partner</div></div><div id="wallet" class="section active"><select id="countrySelect"><option>🇨🇲 Cameroun OM 655166310</option><option>🇨🇮 Côte d'Ivoire Wave</option><option>🇸🇳 Senegal</option><option>🇫🇷 France</option><option>🇺🇸 USA</option></select><div id="step1"><button class="btn-gold" onclick="createWallet()">Creer Wallet Mondial</button><button class="btn-dark" onclick="document.getElementById('importBox').style.display='block'">Importer 12 mots</button><div id="importBox" style="display:none"><textarea id="importSeed" class="input" placeholder="12 mots"></textarea><button onclick="importWallet()">Importer</button></div></div><div id="step2" style="display:none"><p><b>NOTE LES 12 MOTS</b></p><div id="seedPhrase" class="seed"></div><button class="btn-gold" onclick="document.getElementById('step2').style.display='none';document.getElementById('step3').style.display='block'">J'ai note</button></div><div id="step3" style="display:none"><h3>Mon Wallet</h3><p id="addr2" style="font-size:11px;word-break:break-all"></p><p>Balance: <b id="balance2">...</b></p><input id="myRefLink" class="input" readonly><button class="btn-gold" onclick="depositOM()">Deposer OM 1.5% - 655 16 63 10</button><button class="btn-dark" onclick="swap()">Swap 0.85% coffre</button><div id="momoBox" style="display:none;background:#000;padding:10px;border-radius:12px;margin-top:10px"></div></div></div><div id="pub" class="section"><h2>Pub 45 Pays</h2><div class="grid"><div class="box">15k vues/sem</div><div class="box">45 pays</div><div class="box">OM 655166310</div><div class="box">5 min</div></div><div style="margin-top:12px;font-size:32px;font-weight:900">25$ <span style="font-size:14px;color:#888">/ 15,000F</span></div><input id="bizName" class="input" placeholder="Nom boutique"><input id="bizText" class="input" placeholder="Texte pub"><div style="background:#000;border:1px dashed #FFD700;border-radius:12px;padding:12px;margin-top:10px;text-align:center" id="preview">Apercu</div><button class="btn-gold" onclick="payOM()">Payer OM 15,000F - 655 16 63 10</button><button class="btn-dark" onclick="paySOL()">Payer SOL - 8nodJYtBdPN42L3tFFcUfQTYbv3jXhMqcMJSGe9sY1mv</button><div style="background:#0e0a1a;border-radius:12px;padding:10px;margin-top:10px;font-size:12px"><b>OM:</b> +237 655 16 63 10<br><b>Code:</b> <span id="pubCode">DAGAVOR-PUB-XXXX</span><br><b>SOL:</b> 8nodJYtBdPN42L3tFFcUfQTYbv3jXhMqcMJSGe9sY1mv</div></div><div id="partner" class="section"><h3>Partner 70%</h3><input id="partnerName" class="input" placeholder="Nom boutique"><input id="partnerWallet" class="input" placeholder="Adresse SOL 70%"><button style="background:linear-gradient(90deg,#00ff88,#00cc66);color:#000;width:100%;padding:14px;border-radius:14px;border:0;font-weight:800" onclick="createPartner()">Generer</button><p id="partnerCode" style="font-size:11px;word-break:break-all"></p></div></div><script>const DAGAVOR_FEE_WALLET="8nodJYtBdPN42L3tFFcUfQTYbv3jXhMqcMJSGe9sY1mv";const DAGAVOR_OM="+237 655 16 63 10";const RPC="https://api.mainnet-beta.solana.com";function showTab(t,el){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));document.getElementById(t).classList.add('active');el.classList.add('active')}async function createWallet(){const m=bip39.generateMnemonic();const seed=await bip39.mnemonicToSeed(m);const d=ed25519_hd_key.derivePath("m/44'/501'/0'/0'",seed.toString('hex')).key;const kp=solanaWeb3.Keypair.fromSeed(d);document.getElementById('seedPhrase').innerText=m;document.getElementById('addr2').innerText=kp.publicKey.toBase58();document.getElementById('myRefLink').value=location.origin+location.pathname+"?ref="+kp.publicKey.toBase58();document.getElementById('step1').style.display='none';document.getElementById('step2').style.display='block';localStorage.setItem('dagavor_mnemonic',m)}async function importWallet(){const m=document.getElementById('importSeed').value.trim();const seed=await bip39.mnemonicToSeed(m);const d=ed25519_hd_key.derivePath("m/44'/501'/0'/0'",seed.toString('hex')).key;const kp=solanaWeb3.Keypair.fromSeed(d);document.getElementById('addr2').innerText=kp.publicKey.toBase58();document.getElementById('step1').style.display='none';document.getElementById('step3').style.display='block'}function depositOM(){const code='DAGAVOR-'+Math.floor(1000+Math.random()*9000);document.getElementById('momoBox').innerHTML='Envoie 15,000F sur OM <b>'+DAGAVOR_OM+'</b><br>Code: <b>'+code+'</b>';document.getElementById('momoBox').style.display='block';alert('OM '+DAGAVOR_OM+' Code '+code)}async function swap(){const a=prompt('Combien SOL ?');const f=parseFloat(a)*0.0085;alert('Frais '+f.toFixed(5)+' -> '+DAGAVOR_FEE_WALLET)}function createPartner(){const n=document.getElementById('partnerName').value;const w=document.getElementById('partnerWallet').value;document.getElementById('partnerCode').innerHTML='Lien: '+location.origin+location.pathname+'?partner='+n+'<br>70% '+w+' / 30% '+DAGAVOR_FEE_WALLET}function payOM(){const c=document.getElementById('pubCode').innerText;alert('OM: 15,000F sur '+DAGAVOR_OM+' motif '+c)}function paySOL(){const c=document.getElementById('pubCode').innerText;alert('SOL: 0.15 SOL vers '+DAGAVOR_FEE_WALLET+' memo '+c)}window.onload=()=>{document.getElementById('pubCode').innerText='DAGAVOR-PUB-'+Math.floor(1000+Math.random()*9000);document.getElementById('bizText').addEventListener('input',e=>{document.getElementById('preview').innerHTML=e.target.value})}</script></body></html>
+<!-- ETAPE 1 : TEL -->
+<div id="s1" class="step active">
+<h3>1. Vérifie ton numéro OM</h3>
+<select id="pays" class="input"><option value="237">🇨🇲 +237 Cameroun</option><option value="225">🇨🇮 +225 Côte d'Ivoire</option><option value="221">🇸🇳 +221 Sénégal</option><option value="33">🇫🇷 +33 France</option><option value="1">🇺🇸 +1 USA</option></select>
+<input id="tel" class="input" placeholder="Ex: 655166310">
+<button class="btn btn-gold" onclick="sendOTP()">Envoyer code SMS</button>
+<div id="otpBox" style="display:none"><input id="otp" class="input" placeholder="Code reçu : 123456"><button class="btn btn-dark" onclick="verifyOTP()">Vérifier numéro</button><p id="telStatus"></p></div>
+</div>
+
+<!-- ETAPE 2 : EMAIL -->
+<div id="s2" class="step">
+<h3>2. Vérifie ton Email</h3>
+<input id="email" class="input" type="email" placeholder="ton@email.com">
+<button class="btn btn-gold" onclick="sendEmailCode()">Envoyer code Email</button>
+<div id="emailBox" style="display:none"><input id="emailCode" class="input" placeholder="Code Email : 654321"><button class="btn btn-dark" onclick="verifyEmail()">Vérifier Email</button><p id="emailStatus"></p></div>
+</div>
+
+<!-- ETAPE 3 : WALLET -->
+<div id="s3" class="step">
+<h3>3. Ton Wallet Mondial Vérifié</h3>
+<div class="box">Tél vérifié: <span id="vTel" class="ok"></span><br>Email vérifié: <span id="vEmail" class="ok"></span></div>
+<button class="btn btn-gold" onclick="createWallet()">Créer Wallet Maintenant</button>
+<div id="seedBox" style="display:none"><p><b>12 MOTS - NOTE BIEN :</b></p><div id="seed" style="background:#000;padding:12px;border-radius:12px;word-spacing:8px;line-height:26px;border:1px dashed #555"></div><button class="btn btn-dark" onclick="goDepot()">J'ai noté → Dépôt</button></div>
+</div>
+
+<!-- ETAPE 4 : DEPOT OM -->
+<div id="s4" class="step">
+<h3>4. Dépôt OM Vérifié</h3>
+<p>Wallet: <span id="addr" style="font-size:10px;word-break:break-all"></span></p>
+<div class="box">Pour activer, envoie <b>15,000F</b> sur OM <b>+237 655 16 63 10</b><br>Code: <b id="depotCode"></b><br>Coffre SOL: 8nodJYtBdPN42L3tFFcUfQTYbv3jXhMqcMJSGe9sY1mv</div>
+<input id="preuve" class="input" placeholder="Numéro transaction OM (ex: OM12345)">
+<button class="btn btn-gold" onclick="verifDepot()">Vérifier dépôt 1.5%</button>
+<p id="depotStatus"></p>
+</div>
+
+<div id="s5" class="step">
+<h3 class="ok">✅ Wallet Activé 45 Pays !</h3>
+<p>Balance: <b id="bal">$0.00</b></p>
+<input id="refLink" class="input" readonly>
+<button class="btn btn-gold" onclick="location.href='?tab=pub'">Aller à Pub 25$</button>
+</div>
+
+</div>
+<script>
+const OM_NUM="+237 655 16 63 10";
+const SOL="8nodJYtBdPN42L3tFFcUfQTYbv3jXhMqcMJSGe9sY1mv";
+let tempOTP="123456"; let tempEmailOTP="654321";
+function show(id){document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+
+function sendOTP(){
+let t=document.getElementById('tel').value; if(t.length<8){alert('Numéro invalide');return;}
+document.getElementById('otpBox').style.display='block';
+document.getElementById('telStatus').innerHTML='<span class="ok">Code envoyé au '+t+' (Démo: 123456)</span>';
+}
+function verifyOTP(){
+if(document.getElementById('otp').value==tempOTP){
+document.getElementById('vTel').innerText=document.getElementById('tel').value+' ✅';
+show('s2');
+}else{document.getElementById('telStatus').innerHTML='<span class="err">Mauvais code</span>';}
+}
+function sendEmailCode(){
+let e=document.getElementById('email').value; if(!e.includes('@')){alert('Email invalide');return;}
+document.getElementById('emailBox').style.display='block';
+document.getElementById('emailStatus').innerHTML='<span class="ok">Code envoyé à '+e+' (Démo: 654321)</span>';
+}
+function verifyEmail(){
+if(document.getElementById('emailCode').value==tempEmailOTP){
+document.getElementById('vEmail').innerText=document.getElementById('email').value+' ✅';
+document.getElementById('depotCode').innerText='DAGAVOR-'+Math.floor(1000+Math.random()*9000);
+show('s3');
+}else{document.getElementById('emailStatus').innerHTML='<span class="err">Mauvais code</span>';}
+}
+async function createWallet(){
+const m=bip39.generateMnemonic();
+const seed=await bip39.mnemonicToSeed(m);
+const d=ed25519_hd_key.derivePath("m/44'/501'/0'/0'",seed.toString('hex')).key;
+const kp=solanaWeb3.Keypair.fromSeed(d);
+document.getElementById('seed').innerText=m;
+document.getElementById('addr').innerText=kp.publicKey.toBase58();
+document.getElementById('refLink').value=location.origin+'?ref='+kp.publicKey.toBase58();
+document.getElementById('seedBox').style.display='block';
+localStorage.setItem('dagavor_mnemonic',m);
+}
+function goDepot(){show('s4')}
+function verifDepot(){
+let p=document.getElementById('preuve').value; if(p.length<4){alert('Mets le numéro de transaction OM');return;}
+document.getElementById('depotStatus').innerHTML='<span class="ok">Dépôt vérifié! OM '+OM_NUM+' Code '+p+' - Frais 1.5% vers coffre '+SOL.substring(0,10)+'...</span>';
+setTimeout(()=>{show('s5')},1500);
+}
+</script>
+</body>
+</html>
